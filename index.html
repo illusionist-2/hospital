@@ -16,7 +16,12 @@
     }
 
     @page { size: A4; margin: 0; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
 
     body {
       font-family: "Nirmala UI", "Mangal", Arial, Helvetica, sans-serif;
@@ -119,6 +124,13 @@
     @media print {
       .rx-actions { display: none !important; }
       body { background: #fff; }
+      html, body, .rx, .rb, .rc, .sv-title, .form-hdr, .submit-btn,
+      .red-boxes .rb, .red-boxes .rb:first-of-type, .red-boxes .rb:last-of-type,
+      .cta-pill, .sb-panel, .rc.highlight-service {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
     }
 
     /* ══════════════════════════════════════
