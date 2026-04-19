@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>महाजन हॉस्पिटल – पर्चा</title>
+  <style>
+
+    :root {
+      --clinic-red: #b52a20;
+      --clinic-red-dark: #982117;
+      --clinic-blue: #1565C0;
+      --clinic-blue-light: #12AEF0;
+      --text-main: #2f2f2f;
+      --text-soft: #666;
+      --line-soft: #d8dee7;
+    }
+
+    @page { size: A4; margin: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Nirmala UI", "Mangal", Arial, Helvetica, sans-serif;
+      background: #e5e5e5;
+      color: var(--text-main);
+    }
+
+    /* ══════════════════════════════════════
+       FORM VIEW
+    ══════════════════════════════════════ */
+    #form-view {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px 64px;
+    }
+
+    .form-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.14);
+      width: 100%;
+      max-width: 680px;
+      overflow: hidden;
+    }
+
+    .form-hdr {
+      background: var(--clinic-red);
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .form-hdr-logo {
+      width: 52px; height: 52px;
+      object-fit: contain; border-radius: 50%;
+      background: #fff; padding: 3px; flex-shrink: 0;
+    }
+    .form-hdr h2 { font-size: 14pt; font-weight: 900; line-height: 1.2; }
+    .form-hdr p  { font-size: 8.5pt; opacity: 0.85; margin-top: 2px; }
+
+    .form-body { padding: 22px 24px 28px; }
+
+    .form-sec { margin-bottom: 20px; }
+
+    .sec-title {
+      font-size: 9pt; font-weight: 800;
+      color: var(--clinic-red); text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 2px solid var(--clinic-red);
+      padding-bottom: 5px; margin-bottom: 13px;
+    }
+
+    .frow { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+
+    .fg { display: flex; flex-direction: column; gap: 5px; }
+    .fg label {
+      font-size: 7.5pt; font-weight: 700;
+      color: #777; text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .fg input, .fg select, .fg textarea {
+      border: 1.5px solid #ddd; border-radius: 5px;
+      padding: 8px 11px; font-family: Arial, sans-serif;
+      font-size: 10pt; color: var(--text-main); outline: none;
+      background: #fff; transition: border-color 0.15s;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--clinic-red); }
+    .fg textarea { resize: vertical; min-height: 66px; line-height: 1.55; }
+    .fg.full { width: 100%; }
+    .fg.full input, .fg.full textarea, .fg.full select { width: 100%; }
+
+    .submit-btn {
+      width: 100%; background: var(--clinic-red); color: #fff;
+      border: none; padding: 14px; font-size: 12pt;
+      font-weight: 900; border-radius: 6px; cursor: pointer;
+      letter-spacing: 0.5px; margin-top: 4px;
+    }
+    .submit-btn:hover { background: var(--clinic-red-dark); }
+
+    /* ══════════════════════════════════════
+       RX VIEW
+    ══════════════════════════════════════ */
+    #rx-view { display: none; }
+
+    .rx-actions {
+      position: fixed; top: 18px; right: 18px;
+      display: flex; gap: 10px; z-index: 9999;
+    }
+    .act-btn {
+      border: none; padding: 10px 20px;
+      font-size: 11pt; font-weight: 700; border-radius: 5px;
+      cursor: pointer; box-shadow: 0 3px 12px rgba(0,0,0,0.22);
+      font-family: Arial, sans-serif;
+    }
+    .act-edit  { background: #fff; color: var(--clinic-red); border: 2px solid var(--clinic-red); }
+    .act-print { background: var(--clinic-red); color: #fff; }
+
+    @media print {
+      .rx-actions { display: none !important; }
+      body { background: #fff; }
+    }
+
+    /* ══════════════════════════════════════
+       A4
+    ══════════════════════════════════════ */
+    .rx {
+      width: 210mm; height: 297mm;
+      margin: 0 auto; background: #fff;
+      display: flex; flex-direction: column; position: relative;
+      border: 1px solid #d7deeb;
+      overflow: hidden;
+    }
+    @media print {
+      .rx { border: none; box-shadow: none; height: 297mm; page-break-after: avoid; page-break-inside: avoid; }
+    }
+    @media screen { .rx { margin: 14px auto; box-shadow: 0 6px 28px rgba(0,0,0,0.35); } }
+
+    /* Header */
+    .hdr {
+      padding: 5mm 7mm 2mm 7mm;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+    }
+    .doc-name { font-size: 16.2pt; font-weight: 900; color: var(--clinic-red); line-height: 1.06; letter-spacing: -0.2px; }
+    .doc-deg  { font-size: 8.4pt; font-weight: 900; color: #000; margin-top: 1px; }
+    .doc-spec { font-size: 7.2pt; color: #1f1f1f; line-height: 1.5; margin-top: 4px; font-weight: 700; }
+    .doc-spec-list { list-style: none; padding-left: 0; margin: 4px 0 0 0; }
+    .doc-spec-list li { position: relative; padding-left: 0; margin: 2px 0; }
+    .doc-spec-list li::before { content: none; }
+    .doc-r .doc-spec-list { text-align: right; padding-left: 0; padding-right: 0; }
+    .doc-r .doc-spec-list li { padding-left: 0; text-align: right; }
+    .doc-r .doc-spec-list li::before { content: none; }
+    .doc-r    { text-align: right; }
+    .logo-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .logo-col img { width: 138px; height: auto; display: block; }
+    .hosp-tag {
+      font-size: 6.4pt;
+      font-weight: 900;
+      color: #a7291f;
+      text-align: center;
+      letter-spacing: 0.2px;
+      margin-top: 2px;
+      line-height: 1.15;
+      max-width: 170px;
+    }
+    .hosp-sub {
+      font-size: 6.1pt;
+      font-weight: 700;
+      color: #a7291f;
+      text-align: center;
+      letter-spacing: 1.4px;
+      margin-top: 1px;
+      line-height: 1.1;
+    }
+    .hosp-sub .dot-sep { color: #1565C0; font-weight: 900; margin: 0 3px; }
+
+    /* Stethoscope divider — unified baseline */
+    .stetho-band {
+      display: flex;
+      align-items: center;
+      padding: 0 7mm;
+      height: 28px;
+      margin-top: 1px;
+    }
+    .stetho-svg {
+      height: 22px;
+      width: 95px;
+      flex-shrink: 0;
+      display: block;
+    }
+    .stetho-line {
+      flex: 1;
+      height: 1.6px;
+      background: #1e63c0;
+      margin-left: -1px;
+    }
+    .stetho-left, .stetho-fill { display: none; }
+
+    /* Body layout */
+    .body-row { display: flex; flex: 1; }
+
+    /* Sidebar */
+    .sb {
+      width: 63mm; flex-shrink: 0;
+      padding: 3mm 3mm 3mm 5mm;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .sb-panel {
+      border: 1.2px solid #cc8a84;
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #f8f7f5 0%, #fcfbf9 100%);
+      box-shadow: 0 1px 2px rgba(117, 45, 38, 0.05);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .sb-body { flex: 1; }
+    .sv-title {
+      background: linear-gradient(180deg, #9f342b 0%, #9a3128 100%);
+      color: #fff;
+      font-size: 9.2pt;
+      font-weight: 900;
+      text-align: center;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .sv-title .plus {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      color: #b1261d;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .sb-body {
+      padding: 5px 8px 7px;
+    }
+    .rc {
+      background: #a93a31; color: #fff;
+      font-size: 7.3pt; font-weight: 800;
+      display: flex; align-items: center; gap: 9px;
+      padding: 4px 10px;
+      margin: 4px 0 0 0;
+      line-height: 1.2;
+      min-height: 24px;
+      border-radius: 6px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .rc .rc-ic {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      display: inline-block;
+      align-self: center;
+    }
+    .rc > span:last-child,
+    .rc > svg + span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 15px;
+      flex: 1 1 auto;
+      text-align: left;
+    }
+    .rc .rc-ic * {
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .rc.highlight-service {
+      background: #fff5f4;
+      color: #1e1e1e;
+      font-size: 6.8pt;
+      font-weight: 900;
+      line-height: 1.22;
+      padding: 6px 10px;
+      margin: 6px 0 5px 0;
+      border: 1.2px solid #e4a19b;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: none;
+      text-align: left;
+    }
+    .rc.highlight-service .hi-mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      display: inline-block;
+      align-self: center;
+      color: #eb3d32;
+    }
+    .rc.highlight-service .hi-mark * {
+      vector-effect: non-scaling-stroke;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .rc.highlight-service .en {
+      font-size: 6.2pt;
+      font-weight: 800;
+      opacity: 1;
+      display: block;
+    }
+    .rc.highlight-service .hi-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .rc.highlight-service .hi-line1,
+    .rc.highlight-service .hi-line2,
+    .rc.highlight-service .hi-line3 {
+      display: block;
+      white-space: nowrap;
+    }
+    .rc.highlight-service .hi-line1 {
+      font-size: 6.95pt;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .rc.highlight-service .hi-line2 {
+      font-size: 6.05pt;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .rc.highlight-service .hi-line3 {
+      font-size: 6.75pt;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .sub {
+      list-style: none;
+      padding: 5px 4px 5px 8px;
+      border-bottom: 1px solid #ecd5d2;
+    }
+    .sub:last-of-type { border-bottom: none; padding-bottom: 3px; }
+    .sub li {
+      font-size: 7.2pt;
+      color: #202020;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      font-weight: 700;
+      margin: 2px 0;
+    }
+    .sub li::before {
+      content: "";
+      display: inline-block;
+      width: 3.5px;
+      height: 3.5px;
+      border-radius: 50%;
+      background: #202020;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .sb-sec-head {
+      color: #a33a31;
+      font-size: 7.6pt;
+      font-weight: 900;
+      line-height: 1.25;
+      padding: 6px 3px 4px;
+      border-bottom: 1px solid #ecd5d2;
+    }
+
+    /* Main */
+    .main {
+      flex: 1; padding: 3mm 7mm 3mm 3mm;
+      display: flex; flex-direction: column;
+      min-width: 0; position: relative;
+    }
+
+    /* Watermark */
+    .wm {
+      position: absolute; width: 280px;
+      top: 51%; left: 53%;
+      transform: translate(-50%, -50%);
+      opacity: 0.085; pointer-events: none; z-index: 0;
+    }
+
+    /* Patient info */
+    .pt-info {
+      position: relative; z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 6px;
+      column-gap: 0;
+      align-items: baseline;
+      font-size: 9.5pt;
+      color: var(--text-main);
+      margin-bottom: 7px;
+    }
+    .pt-chunk {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      padding: 0 8px;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
+    .pt-chunk:first-child {
+      padding-left: 6px;
+      flex: 1 1 auto;
+      min-width: 200px;
+    }
+    .pt-lbl {
+      font-weight: 700;
+      font-size: 8.4pt;
+      flex-shrink: 0;
+      color: #184b9f;
+      letter-spacing: 0.15px;
+    }
+    .pt-val {
+      font-size: 8.8pt;
+      border-bottom: 1.5px solid #7d98bb;
+      min-width: 0;
+      padding: 0 2px 1px;
+      display: inline-block;
+      flex: 1 1 auto;
+      white-space: normal;
+      overflow-wrap: break-word;
+      color: #3f434a;
+      font-weight: 400;
+    }
+    .pt-sep {
+      width: 1px;
+      align-self: stretch;
+      background: #9db0cb;
+      margin: 2px 0 1px;
+      flex-shrink: 0;
+    }
+
+    .pt-divider {
+      border: none; border-top: 1px solid var(--line-soft);
+      margin: 5px 0 9px 0; position: relative; z-index: 1;
+    }
+
+    /* Clinical blocks — history / complaint / diagnosis */
+    .rx-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+    }
+
+    .cl-block {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .cl-lbl {
+      font-size: 9pt; font-weight: 800;
+      color: var(--clinic-red); white-space: nowrap;
+      flex-shrink: 0; width: 130px;
+      letter-spacing: 0.12px;
+    }
+    .cl-sep {
+      color: var(--clinic-red); font-weight: 800; font-size: 9pt; flex-shrink: 0;
+    }
+    .cl-val {
+      font-size: 8.7pt; color: var(--text-main); line-height: 1.4; flex: 1; font-weight: 700;
+    }
+
+    /* Diagnosis gets slightly more emphasis */
+    .cl-block.diag .cl-lbl { font-size: 9pt; }
+    .cl-block.diag .cl-val { font-weight: 600; }
+
+    /* Divider before Rx area */
+    .rx-divider {
+      border: none; border-top: 1px dashed #ced7e2;
+      margin: 8px 0 8px 0; position: relative; z-index: 1;
+    }
+
+    /* ℞ symbol */
+    .rx-sym {
+      font-size: 22pt; font-weight: 900;
+      color: var(--clinic-red); font-style: italic;
+      line-height: 1; display: block;
+      margin-bottom: 5px;
+      position: relative; z-index: 1;
+    }
+
+    /* Blank writing area — absorbs all leftover vertical space */
+    .write-area {
+      flex: 1 1 auto;
+      min-height: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Tests / Precautions */
+    .rx-sec { margin-top: 8px; position: relative; z-index: 1; }
+    .rx-sec-lbl {
+      font-size: 8.8pt; font-weight: 800;
+      color: #184b9f; text-transform: uppercase;
+      letter-spacing: 0.45px; margin-bottom: 5px;
+    }
+    .rx-sec-body {
+      font-size: 8.6pt; color: var(--text-main);
+      line-height: 1.4; padding-left: 0;
+      font-weight: 700;
+    }
+
+    /* Bottom — pushed to bottom of main flex column */
+    .bottom {
+      position: relative;
+      z-index: 1;
+      margin-top: 22px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    .bottom-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 6px;
+      flex: 1;
+      min-width: 0;
+      align-self: stretch;
+    }
+
+    .validity-note {
+      font-size: 8pt;
+      color: var(--text-main);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .next-visit-line {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .next-lbl {
+      font-size: 8.1pt;
+      font-weight: 900;
+      white-space: nowrap;
+      color: #111;
+    }
+    .next-val {
+      font-size: 8.5pt; color: var(--text-main);
+      border-bottom: 1px solid #333;
+      min-width: 110px;
+      padding: 0 4px 2px;
+      display: inline-block;
+      background: transparent;
+    }
+
+    .sig-block {
+      width: 180px;
+      margin-top: auto;
+      text-align: center;
+    }
+    .sig-line {
+      border-top: 1.2px solid #222;
+      width: 100%;
+      margin-bottom: 3px;
+    }
+    .sig-lbl {
+      font-size: 7.6pt;
+      color: #555;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    /* Red boxes (right bottom) */
+    .red-boxes {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 228px;
+      flex-shrink: 0;
+      z-index: 4;
+    }
+    .handle-svg {
+      position: absolute;
+      left: 50%;
+      top: -38px;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 46px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .rb {
+      background: linear-gradient(180deg, #b02a20 0%, #a2231a 100%);
+      color: #fff;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+      border-radius: 12px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.16);
+    }
+    .red-boxes .rb:first-of-type {
+      min-height: 76px;
+      padding: 10px 14px 12px;
+      font-size: 8pt;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+    }
+    .red-boxes .rb:last-of-type {
+      padding: 8px 10px;
+      font-size: 6.9pt;
+      font-weight: 800;
+      line-height: 1.2;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #a6291f 0%, #981e16 100%);
+    }
+    .cta-top-line {
+      display: block;
+      color: #fff;
+      font-size: 8.6pt;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .cta-pill {
+      display: inline-block;
+      align-self: center;
+      background: #fff;
+      color: #a6281f;
+      font-size: 9.6pt;
+      font-weight: 900;
+      line-height: 1.2;
+      padding: 5px 10px;
+      border-radius: 7px;
+      max-width: calc(100% - 20px);
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,0.07);
+    }
+
+    /* Footer */
+    .footer {
+      background: #fff; border-top: 2px solid #184b9f;
+      padding: 2mm 7mm 4mm 7mm;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .s-col {
+      display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; width: 165px;
+      padding-right: 12px; border-right: 2px solid #184b9f;
+    }
+    .s-item { display: flex; align-items: center; gap: 6px; font-size: 7pt; color: var(--text-main); font-weight: 800; }
+    .f-mid { flex: 1; text-align: center; padding-top: 1px; }
+    .hosp-name {
+      font-size: 13.8pt;
+      font-weight: 900;
+      color: #184b9f;
+      line-height: 1.12;
+      letter-spacing: 0.2px;
+    }
+    .hosp-addr {
+      font-size: 7.5pt;
+      color: #245fb3;
+      margin-top: 3px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+    .hosp-ic {
+      width: 11px;
+      height: 11px;
+      display: inline-block;
+      vertical-align: -1px;
+      margin-right: 5px;
+      color: var(--clinic-red);
+    }
+    .hosp-ph {
+      font-size: 9.6pt;
+      font-weight: 900;
+      color: #184b9f;
+      margin-top: 3px;
+      letter-spacing: 0.2px;
+    }
+
+    @media screen and (max-width: 900px) {
+      #form-view { padding: 20px 12px 36px; }
+      .rx { width: 100%; min-height: auto; }
+      .hdr { grid-template-columns: 1fr; text-align: center; }
+      .doc-r { text-align: center; }
+      .stetho-band { display: none; }
+      .body-row { flex-direction: column; }
+      .sb, .main { width: 100%; padding: 10px 12px; }
+      .pt-info { flex-wrap: wrap; }
+      .pt-sep { display: none; }
+      .sig-r, .red-boxes { position: static; width: 100%; margin-top: 16px; }
+      .sig-row { min-height: auto; }
+      .footer { flex-direction: column; }
+      .s-col { width: 100%; border-right: none; border-bottom: 2px solid #184b9f; padding-right: 0; padding-bottom: 8px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     DOCTOR'S FORM
+════════════════════════════════════════════ -->
+<div id="form-view">
+  <div class="form-card">
+
+    <div class="form-hdr">
+      <img class="form-hdr-logo"
+        src="./WhatsApp%20Image%202026-04-18%20at%2012.26.21%20PM.jpeg"
+        alt="MH">
+      <div>
+        <h2>नया पर्चा लिखें</h2>
+        <p>महाजन हॉस्पिटल एवं हड्डी व नस केयर सेन्टर, उन्नाव</p>
+      </div>
+    </div>
+
+    <div class="form-body">
+
+      <!-- Patient Details -->
+      <div class="form-sec">
+        <div class="sec-title">मरीज की जानकारी</div>
+        <div class="frow">
+          <div class="fg" style="flex:2; min-width:180px;">
+            <label>नाम / Name</label>
+            <input type="text" id="pt-name" placeholder="मरीज का पूरा नाम">
+          </div>
+          <div class="fg" style="min-width:70px;">
+            <label>उम्र / Age</label>
+            <input type="text" id="pt-age" placeholder="वर्ष" style="width:80px;">
+          </div>
+          <div class="fg" style="min-width:120px;">
+            <label>लिंग / Sex</label>
+            <select id="pt-sex" style="width:130px;">
+              <option value="">—</option>
+              <option value="पुरुष (M)">पुरुष (M)</option>
+              <option value="महिला (F)">महिला (F)</option>
+            </select>
+          </div>
+          <div class="fg" style="min-width:140px;">
+            <label>तारीख / Date</label>
+            <input type="date" id="pt-date" style="width:155px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="form-sec">
+        <div class="sec-title">इतिहास / History</div>
+        <div class="fg full">
+          <textarea id="history-in" placeholder="पुरानी बीमारी, पिछले इलाज की जानकारी…" style="min-height:58px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Chief Complaint -->
+      <div class="form-sec">
+        <div class="sec-title">मुख्य शिकायत / Chief Complaint</div>
+        <div class="fg full">
+          <textarea id="complaint-in" placeholder="मरीज की मुख्य तकलीफ, कब से है…" style="min-height:58px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Diagnosis -->
+      <div class="form-sec">
+        <div class="sec-title">निदान / Diagnosis</div>
+        <div class="fg full">
+          <textarea id="diagnosis-in" placeholder="रोग का निदान…" style="min-height:54px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Tests -->
+      <div class="form-sec">
+        <div class="sec-title">जांच / Tests Advised</div>
+        <div class="fg full">
+          <textarea id="tests-in" placeholder="जैसे: CBC, LFT, X-Ray Knee AP/Lateral, Blood Sugar…" style="min-height:54px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Precautions -->
+      <div class="form-sec">
+        <div class="sec-title">सावधानियां / Precautions</div>
+        <div class="fg full">
+          <textarea id="precautions-in" placeholder="जैसे: आराम करें, भारी काम न करें…" style="min-height:54px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Next Visit -->
+      <div class="form-sec">
+        <div class="sec-title">अगली मुलाकात / Next Visit</div>
+        <div class="fg">
+          <input type="date" id="next-visit" style="width:175px;">
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="submitRx()">पर्चा तैयार करें &rarr;</button>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     PRESCRIPTION (A4)
+════════════════════════════════════════════ -->
+<div id="rx-view">
+
+  <div class="rx-actions">
+    <button class="act-btn act-edit" onclick="editRx()">&#9998;&nbsp; बदलाव करें</button>
+    <button class="act-btn act-print" onclick="window.print()">&#128424;&nbsp; Print / छापें</button>
+  </div>
+
+  <div class="rx">
+
+    <!-- HEADER -->
+    <div class="hdr">
+      <div>
+        <div class="doc-name">डॉ. विवेक महाजन</div>
+        <div class="doc-deg">MD</div>
+        <ul class="doc-spec doc-spec-list">
+          <li>जनरल फिज़िशियन एवं सर्जन</li>
+          <li>सर्टिफाइड पेट रोग विशेषज्ञ</li>
+          <li>सर्टिफाइड गुर्दा एवं पित्त की पथरी रोग विशेषज्ञ</li>
+          <li>सर्टिफाइड बांझपन रोग विशेषज्ञ</li>
+          <li>सर्टिफाइड सेक्सोलॉजिस्ट</li>
+        </ul>
+      </div>
+
+      <div class="logo-col">
+        <img src="./WhatsApp%20Image%202026-04-18%20at%2012.26.21%20PM.jpeg" alt="MH Logo">
+      </div>
+
+      <div class="doc-r">
+        <div class="doc-name">डॉ. सुजीत महाजन</div>
+        <div class="doc-deg">MBBS, MD, DNB, D.ORTHO., FIPM</div>
+        <ul class="doc-spec doc-spec-list doc-spec-right">
+          <li>जनरल फिज़िशियन एवं हड्डी व नस रोग विशेषज्ञ</li>
+                    <li>इंडियन मेडिकल एसोसिएशन के सदस्य</li>
+          <li>डिप्लोमा इन ऑर्थोपेडिक एंड न्यूरोलॉजी</li>
+          <li>डिप्लोमा इन इमरजेंसी मेडिसिन</li>
+          <li>सर्टिफाइड शुगर एवं बीपी रोग विशेषज्ञ</li>
+          <li>सर्टिफाइड सांस एवं अस्थमा रोग विशेषज्ञ</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Stethoscope divider -->
+    <div class="stetho-band" aria-label="stethoscope divider">
+      <svg class="stetho-svg" viewBox="0 0 95 28" fill="none" stroke="#1e63c0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Lucide stethoscope translated so chest piece sits on Y=14 baseline -->
+        <g transform="translate(1 4)">
+          <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+          <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/>
+          <circle cx="20" cy="10" r="2"/>
+        </g>
+        <!-- Heartbeat ECG (baseline Y=14) -->
+        <path d="M30 14 L40 14 L44 7 L48 21 L52 11 L56 14 L64 14"/>
+        <!-- Dot -->
+        <circle cx="70" cy="14" r="1.8" fill="#1e63c0" stroke="none"/>
+        <!-- Short line stub to blend with CSS line -->
+        <path d="M74 14 L94 14"/>
+      </svg>
+      <div class="stetho-line"></div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body-row">
+
+      <!-- SIDEBAR -->
+      <div class="sb">
+        <div class="sb-panel">
+          <div class="sv-title"><span class="plus">✚</span>उपलब्ध सुविधाएं</div>
+          <div class="sb-body">
+            <div class="sb-sec-head">हड्डी की सभी बीमारियों का इलाज</div>
+            <ul class="sub">
+              <li>गठिया (Arthritis)</li>
+              <li>सियाटिका/कमर दर्द</li>
+              <li>सर्वाइकल पेन / गर्दन दर्द</li>
+              <li>सभी नसों की बीमारी</li>
+              <li>कंधा जाम / हाथ में दर्द</li>
+              <li>तलवों में दर्द</li>
+            </ul>
+            <span class="rc highlight-service">
+              <svg class="hi-mark" viewBox="0 0 32 32" fill="currentColor" stroke="none" aria-hidden="true">
+                <!-- Upper bone (femur): shaft tapering to bulbous condyle at bottom -->
+                <path d="M12 2 L12 9 C9 9 7 10.5 7 13 C7 14.5 8.5 15.3 10 15.3 L22 15.3 C23.5 15.3 25 14.5 25 13 C25 10.5 23 9 20 9 L20 2 Z"/>
+                <!-- Lower bone (tibia): mirrored — bulbous plateau at top, shaft below -->
+                <path d="M12 30 L12 23 C9 23 7 21.5 7 19 C7 17.5 8.5 16.7 10 16.7 L22 16.7 C23.5 16.7 25 17.5 25 19 C25 21.5 23 23 20 23 L20 30 Z"/>
+                <!-- Pain radiation rays -->
+                <g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none">
+                  <line x1="2" y1="16" x2="5" y2="16"/>
+                  <line x1="27" y1="16" x2="30" y2="16"/>
+                  <line x1="3" y1="10" x2="5.5" y2="12"/>
+                  <line x1="3" y1="22" x2="5.5" y2="20"/>
+                  <line x1="29" y1="10" x2="26.5" y2="12"/>
+                  <line x1="29" y1="22" x2="26.5" y2="20"/>
+                </g>
+              </svg>
+              <span class="hi-copy">
+                <span class="hi-line1">रूमेटाइड गठिया</span>
+                <span class="hi-line2">(Rheumatoid Arthritis)</span>
+                <span class="hi-line3">का इलाज उपलब्ध</span>
+              </span>
+            </span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17v-4a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v4"/><path d="M2 17h20"/><path d="M7 10V8a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 13 8v2"/><path d="M15 6.5h3.5L15 9h3.5"/></svg>घबराहट /उलझन</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 5a3 3 0 0 0-3 3 2.5 2.5 0 0 0-1.5 2.3A2.5 2.5 0 0 0 5.5 13a2.5 2.5 0 0 0 0 3.5 2.5 2.5 0 0 0 3 2.5 3 3 0 0 0 3 0"/><path d="M15.5 5a3 3 0 0 1 3 3 2.5 2.5 0 0 1 1.5 2.3 2.5 2.5 0 0 1-1.5 2.7 2.5 2.5 0 0 1 0 3.5 2.5 2.5 0 0 1-3 2.5 3 3 0 0 1-3 0"/><path d="M12 6v12"/></svg>झटके/दौरा पड़ना</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4.5" r="1.5"/><path d="M10 8v4h3l2 2"/><circle cx="10" cy="17" r="4"/><path d="M16 16l2 3h2"/></svg>पैरालिसिस (लकवा)</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c0 0 -5 6.5 -5 10.5a5 5 0 0 0 10 0c0 -4 -5 -10.5 -5 -10.5z" fill="#fff" stroke="#fff"/></svg>शुगर</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/><path d="M7 12h3l1-2 2 4 1-2h3"/></svg>ब्लड प्रेशर (बी.पी.)</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4a2 2 0 1 1 4 0v10a4 4 0 1 1-4 0z"/><circle cx="12" cy="17" r="1.6" fill="#fff" stroke="none"/><path d="M12 14V9"/></svg>मियादी बुखार</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v8"/><path d="M12 5c-1 1-3 1.5-4 3s-1 3-1 5 .5 3.5 2 3.5 2-1.5 2-3V10"/><path d="M12 5c1 1 3 1.5 4 3s1 3 1 5-.5 3.5-2 3.5-2-1.5-2-3V10"/></svg>सांस की बीमारी</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 4.5c0-1 .8-1.8 1.8-1.8h1.5c1 0 1.8.8 1.8 1.8V7c3 0 5 2 5 5.2 0 3.7-3.2 7-7.5 7s-7.5-3-7.5-6.8c0-2.9 2-4.8 4.8-4.8"/><path d="M11 11h3"/><path d="M10 14h4"/></svg>पेट की बीमारी</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="1" fill="#fff" stroke="none"/></svg>आँखों की सूजन/इन्फेक्शन</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7c2-2 6-3 10-3 3 0 6 .8 8 2.5 0 5-2 9-5 11-4 2-9 1-11.5-2C2.5 13.5 2 10 3 7z"/><path d="M10 9c-.8 1.5-.8 3 0 4.5"/></svg>लिवर की बीमारी</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8a3 3 0 0 1 6 0v2a3 3 0 0 0 6 0V8a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3v2"/><path d="M7 13a3 3 0 1 0 6 0"/><path d="M4 18h6"/></svg>सेक्स संबंधित बीमारी</span>
+            <ul class="sub">
+              <li>धात रोग</li>
+              <li>समय की कमी</li>
+              <li>तनाव की कमी</li>
+            </ul>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5c0 0 -5.5 7 -5.5 11.5a5.5 5.5 0 0 0 11 0c0 -4.5 -5.5 -11.5 -5.5 -11.5z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></svg>सफेद पानी का इलाज</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="5"/><path d="M7 9c0-3 2-5 5-5s5 2 5 5"/><path d="M9 6.5c0.5-1 1.5-1.8 3-1.8s2.5 0.8 3 1.8"/><path d="M10 18v3"/><path d="M14 18v3"/></svg>गंजेपन का इलाज</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10c0-4 3-7 7-7s7 3 7 7v4c0 4-3 7-7 7s-7-3-7-7z"/><circle cx="9.5" cy="11" r="0.8" fill="#fff" stroke="none"/><circle cx="14.5" cy="12" r="0.8" fill="#fff" stroke="none"/><circle cx="11" cy="15" r="0.8" fill="#fff" stroke="none"/></svg>त्वचा रोग का इलाज</span>
+            <span class="rc"><svg class="rc-ic" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M3 7h18v4H3z"/><path d="M12 11v10M7 7V5M17 7V5"/></svg>ऑपरेशन</span>
+            <ul class="sub">
+              <li>टूटी हुई हड्डी</li>
+              <li>पित्त की थैली</li>
+              <li>बच्चेदानी की गांठ</li>
+              <li>सभी प्रकार के ऑपरेशन की सुविधा</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="main">
+
+        <img class="wm"
+          src="./WhatsApp%20Image%202026-04-18%20at%2012.26.21%20PM.jpeg"
+          alt="">
+
+        <!-- Patient info -->
+        <div class="pt-info" id="rx-pt-info"></div>
+        <hr class="pt-divider">
+
+        <!-- Clinical content populated by JS -->
+        <div class="rx-content" id="rx-content"></div>
+
+        <!-- Blank ℞ writing area -->
+        <hr class="rx-divider">
+        <span class="rx-sym">&#8478;</span>
+        <div class="write-area"></div>
+
+        <!-- Tests / Precautions populated by JS -->
+        <div id="rx-extras"></div>
+
+        <!-- Bottom -->
+        <div class="bottom">
+
+          <div class="bottom-lines">
+            <div class="validity-note">* केवल 5 दिनों के लिए मान्य</div>
+            <div class="next-visit-line">
+              <span class="next-lbl">अगली मुलाकात :</span>
+              <span class="next-val" id="rx-next-val"></span>
+            </div>
+            <div class="sig-block">
+              <div class="sig-line"></div>
+              <div class="sig-lbl">डॉक्टर के हस्ताक्षर</div>
+            </div>
+          </div>
+
+          <div class="red-boxes">
+            <svg class="handle-svg" viewBox="0 0 220 70" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M40 68 L40 38 Q40 10 110 10 Q180 10 180 38 L180 68"
+                    stroke="#6b7b9e" stroke-width="9"
+                    fill="none" stroke-linecap="round"/>
+              <path d="M40 68 L40 38 Q40 10 110 10 Q180 10 180 38 L180 68"
+                    stroke="#9aa7c2" stroke-width="3"
+                    fill="none" stroke-linecap="round"
+                    opacity="0.55"/>
+            </svg>
+            <div class="rb">टूटी हुई हड्डी का इलाज<br>प्लास्टर एवं ऑपरेशन द्वारा</div>
+            <div class="rb">NOT FOR MEDICOLEGAL PURPOSE</div>
+          </div>
+
+        </div>
+
+      </div><!-- /main -->
+    </div><!-- /body-row -->
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="s-col">
+        <div class="s-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          Mahajan Hospital Unnao
+        </div>
+        <div class="s-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2M8.53 7.33c.17 0 .33.01.47.01.16.01.36-.05.56.43.2.5.7 1.72.76 1.84.06.12.1.26.02.43-.08.16-.12.27-.25.41-.1.15-.26.33-.37.44-.12.11-.23.26-.11.5.15.25.64 1.06 1.38 1.72.94.84 1.74 1.1 2 1.23.24.12.38.1.53-.07.14-.16.62-.72.78-.97.19-.24.33-.2.56-.12.22.08 1.44.68 1.69.82.25.11.41.17.48.27.06.11.06.6-.15 1.18-.21.58-1.19 1.11-1.67 1.18-.43.06-.97.09-1.56-.1-.36-.11-.82-.26-1.41-.53-2.49-1.06-4.11-3.56-4.25-3.73-.11-.17-1-1.34-1-2.56 0-1.21.65-1.82.87-2.07.23-.25.5-.31.66-.31Z"/></svg>
+          6388600338 / 6395650185
+        </div>
+        <div class="s-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#FF0000"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#fff"/></svg>
+          Mahajan Hospital Unnao
+        </div>
+        <div class="s-item">
+          <svg width="14" height="14" viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" fill="url(#ig)"/><circle cx="12" cy="12" r="4" fill="none" stroke="#fff" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>
+          mahajan_hospital_unnao
+        </div>
+      </div>
+      <div class="f-mid">
+        <div class="hosp-name">महाजन हॉस्पिटल एवं हड्डी व नस केयर सेन्टर</div>
+        <div class="hosp-addr"><svg class="hosp-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 6 8 12 8 12s8-6 8-12a8 8 0 0 0-8-8zm0 10.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>शेखपुर, करोवन मोड़ से 100 मीटर आगे, उन्नाव-शुक्लागंज रोड, उन्नाव</div>
+        <div class="hosp-ph"><svg class="hosp-ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.98.98 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.68.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>मो० 6388600338 / 6395650185</div>
+      </div>
+    </div>
+
+  </div><!-- /rx -->
+</div><!-- /rx-view -->
+
+
+<script>
+
+  function gv(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function esc(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function fmtDate(d) {
+    if (!d) return '';
+    var p = d.split('-');
+    return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : d;
+  }
+
+  function toTitleCase(str) {
+    if (!str) return '';
+    return str.replace(/\S+/g, function(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+  }
+
+  function submitRx() {
+    var data = {
+      name      : toTitleCase(gv('pt-name')),
+      age       : gv('pt-age'),
+      sex       : gv('pt-sex'),
+      date      : fmtDate(gv('pt-date')),
+      history   : gv('history-in'),
+      complaint : gv('complaint-in'),
+      diagnosis : gv('diagnosis-in'),
+      tests     : gv('tests-in'),
+      precautions: gv('precautions-in'),
+      nextVisit : fmtDate(gv('next-visit'))
+    };
+
+    buildPrescription(data);
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('rx-view').style.display = 'block';
+  }
+
+  function editRx() {
+    document.getElementById('rx-view').style.display = 'none';
+    document.getElementById('form-view').style.display = 'flex';
+  }
+
+  function buildPrescription(data) {
+
+    /* Patient info */
+    var fields = [
+      { label: 'NAME', value: data.name || ' ' },
+      { label: 'AGE', value: data.age ? data.age + ' yr' : ' ' },
+      { label: 'SEX', value: data.sex || ' ' },
+      { label: 'DATE', value: data.date || ' ' }
+    ];
+    var pt = fields.map(function(field, index) {
+      return '<span class="pt-chunk"><span class="pt-lbl">' + field.label + '</span><span class="pt-val">' + esc(field.value) + '</span></span>'
+        + (index < fields.length - 1 ? '<span class="pt-sep"></span>' : '');
+    }).join('');
+    document.getElementById('rx-pt-info').innerHTML = pt;
+
+    /* Clinical blocks */
+    var html = '';
+
+    if (data.history) {
+      html += '<div class="cl-block">'
+            + '<span class="cl-lbl">History</span>'
+            + '<span class="cl-sep">:</span>'
+            + '<span class="cl-val">' + esc(data.history).replace(/\n/g,'<br>') + '</span>'
+            + '</div>';
+    }
+    if (data.complaint) {
+      html += '<div class="cl-block">'
+            + '<span class="cl-lbl">Chief Complaint</span>'
+            + '<span class="cl-sep">:</span>'
+            + '<span class="cl-val">' + esc(data.complaint).replace(/\n/g,'<br>') + '</span>'
+            + '</div>';
+    }
+    if (data.diagnosis) {
+      html += '<div class="cl-block diag">'
+            + '<span class="cl-lbl">Diagnosis</span>'
+            + '<span class="cl-sep">:</span>'
+            + '<span class="cl-val">' + esc(data.diagnosis).replace(/\n/g,'<br>') + '</span>'
+            + '</div>';
+    }
+
+    document.getElementById('rx-content').innerHTML = html;
+
+    /* Tests + Precautions below write area */
+    var extras = '';
+    if (data.tests) {
+      extras += '<div class="rx-sec">'
+              + '<div class="rx-sec-lbl">TESTS ADVISED</div>'
+              + '<div class="rx-sec-body">' + esc(data.tests).replace(/\n/g,'<br>') + '</div>'
+              + '</div>';
+    }
+    if (data.precautions) {
+      extras += '<div class="rx-sec">'
+              + '<div class="rx-sec-lbl">PRECAUTIONS</div>'
+              + '<div class="rx-sec-body">' + esc(data.precautions).replace(/\n/g,'<br>') + '</div>'
+              + '</div>';
+    }
+    document.getElementById('rx-extras').innerHTML = extras;
+
+    /* Next visit */
+    document.getElementById('rx-next-val').textContent = data.nextVisit || '';
+  }
+
+  /* Set today's date on load */
+  (function() {
+    var t = new Date();
+    var d = String(t.getDate()).padStart(2,'0');
+    var m = String(t.getMonth()+1).padStart(2,'0');
+    document.getElementById('pt-date').value = t.getFullYear() + '-' + m + '-' + d;
+  })();
+
+  (function() {
+    var ctaBox = document.querySelectorAll('.red-boxes .rb')[0];
+    if (!ctaBox) return;
+    if (ctaBox.querySelector('.cta-pill')) return;
+
+    var parts = ctaBox.innerHTML.split('<br>');
+    if (parts.length < 2) return;
+
+    ctaBox.innerHTML =
+      '<span class="cta-top-line">' + parts[0] + '</span>' +
+      '<span class="cta-pill">' + parts.slice(1).join(' ') + '</span>';
+  })();
+
+</script>
+
+</body>
+</html>
